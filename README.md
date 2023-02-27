@@ -12,4 +12,4 @@ git status
 3) To check the configuration, run:
 	git config --global --list
 
-git config --global credential.helper store
+4)git config --global credential.helper store
