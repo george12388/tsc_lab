@@ -13,3 +13,5 @@ git status
 	git config --global --list
 
 4)git config --global credential.helper store
+
+Tema: Cum fac sa sterg credentialele?
