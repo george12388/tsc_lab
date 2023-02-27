@@ -15,3 +15,5 @@ git status
 4)git config --global credential.helper store
 
 Tema: Cum fac sa sterg credentialele?
+
+5) ssh-keygen -t rsa -b 4096 -C "your_email@example.com".
