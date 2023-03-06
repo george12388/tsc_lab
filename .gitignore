@@ -1,3 +1,10 @@
 tsc_lab2/work
 tsc_lab2/test.v:Zone.Identifier
 tsc_lab2/*.ini
+lab3/work/*.ini
+lab3/work
+lab3/lab_dut/*.Identifier
+lab3/lab01_testbench-interface/*.Identifier
+lab3/lab01_testbench-interface/*.f
+lab3/test/*.Identifier
+lab3/*.wlf
