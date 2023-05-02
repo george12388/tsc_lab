@@ -26,10 +26,19 @@ import instr_register_pkg::*;  // user-defined types are defined in instr_regist
   always@(posedge clk, negedge reset_n)   // write into register
     if (!reset_n) begin
       foreach (iw_reg[i])
-        iw_reg[i] = '{opc:ZERO,default:0};  // reset to all zeros
+        iw_reg[i] = '{opc:ZERO,a:0,b:0,rezultat:0};  // reset to all zeros
     end
     else if (load_en) begin
-      iw_reg[write_pointer] = '{opcode,operand_a,operand_b};
+      iw_reg[write_pointer] = '{opcode,operand_a,operand_b, 0};
+      case(opcode)
+        ADD: iw_reg[write_pointer].rezultat = operand_a + operand_b;
+             iw_reg[write_pointer].rezultat[$clog2(iw_reg[write_pointer].rezultat)+1:0] = iw_reg[write_pointer].rezultat; // calculati numarul de biti necesari si il salvati in rezultat
+        SUB: iw_reg[write_pointer].rezultat = operand_a - operand_b;
+             iw_reg[write_pointer].rezultat[$clog2(iw_reg[write_pointer].rezultat)+1:0] = iw_reg[write_pointer].rezultat; // calculati numarul de biti necesari si il salvati in rezultat
+        MUL: iw_reg[write_pointer].rezultat = operand_a * operand_b;
+             iw_reg[write_pointer].rezultat[$clog2(iw_reg[write_pointer].rezultat)+1:0] = iw_reg[write_pointer].rezultat; // calculati numarul de biti necesari si il salvati in rezultat
+        default: // do nothing
+      endcase
     end
 
   // read from the register
@@ -41,5 +50,9 @@ initial begin
   force operand_b = operand_a; // cause wrong value to be loaded into operand_b
 end
 `endif
+
+ always @(posedge clk) begin
+    $display("Instruction word: %0h, Rezultat: %0d", instruction_word, instruction_word.rezultat);
+  end
 
 endmodule: instr_register
